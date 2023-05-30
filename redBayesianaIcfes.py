@@ -19,7 +19,7 @@ from pgmpy.inference import VariableElimination
 #Apertura datos Christer
 #data_cardiaca = pd.read_csv("C:/Users/baka/Desktop/analitica/Proyectos/Proyecto_prediccion_enfermedades_cardiacas__actd/cleveland_data.csv")
 #datos_icfes = pd.read_csv("C:/Users/cob91/Desktop/p3 analitica/Datos_PruebaSaber.csv")
-datos_icfes = pd.read_csv("C:/Users/dafef/OneDrive - Universidad de los Andes/Decimo Semestre/Analitica computacional/Proyecto 3 Pruebas Saber 11/Datos_modelo.csv")
+datos_icfes = pd.read_csv("C:/Users/dafef/OneDrive - Universidad de los Andes/Decimo Semestre/Analitica computacional/Proyecto 3 Pruebas Saber/Datos_modelo.csv")
 datos_icfes = datos_icfes.dropna()
 print(len(datos_icfes))
 
@@ -139,36 +139,18 @@ estimated_modelh.check_model()
 ##############Serializacion############
 from pgmpy.readwrite import BIFWriter
 writer = BIFWriter(estimated_modelh)
-writer.write_bif(filename='modeloK2.bif')
+writer.write_bif(filename='Analitica computacional/Proyecto 3 Pruebas Saber/modeloK2.bif')
 
 from pgmpy.readwrite import XMLBIFWriter
 # write model to an XML BIF file 
 writer = XMLBIFWriter(estimated_modelh)
-writer.write_xmlbif('modeloK2.xml')
+writer.write_xmlbif('Analitica computacional/Proyecto 3 Pruebas Saber/modeloK2.xml')
 
 ##Validación modelo
-datos_icfes_vali = pd.read_csv("C:/Users/dafef/OneDrive - Universidad de los Andes/Decimo Semestre/Analitica computacional/Proyecto 3 Pruebas Saber 11/Datos_Validacion.csv")
-datos_icfes_vali = datos_icfes_vali.dropna()
-print(len(datos_icfes_vali))
-conditions = [
-    datos_icfes_vali['punt_global'] < 219,
-    (datos_icfes_vali['punt_global'] >= 219) & (datos_icfes_vali['punt_global'] < 253),
-    (datos_icfes_vali['punt_global'] >= 253) & (datos_icfes_vali['punt_global'] < 290),
-    datos_icfes_vali['punt_global'] >= 290
-]
-values = ['0%-25%', '25%-50%', '50%-75%','75%-100%']
-
-# Use np.select to create the new "global" column
-datos_icfes_vali['global'] = np.select(conditions, values)
-
-datos_icfes_vali = datos_icfes_vali.drop('punt_global', axis=1)
 
 def process_data(datosPrueba, pModelo):
     inferencia = VariableElimination(pModelo)
-    V1=0
-    V2=0
-    V3=0
-    V4=0
+    V=0
     F=0
     
     for index, row in datosPrueba.iterrows():
