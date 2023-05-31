@@ -6,19 +6,12 @@ Created on Mon May 29 15:00:12 2023
 """
 
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import numpy as np 
-import pandas as pd
-import plotly.express as px
-from pgmpy.models import BayesianNetwork
-from pgmpy.factors.discrete import TabularCPD
-from pgmpy.estimators import MaximumLikelihoodEstimator
+from dash import dcc, html, callback
 from pgmpy.inference import VariableElimination
-from pgmpy.readwrite import BIFReader
 from pgmpy.readwrite import XMLBIFReader
 from dash.dependencies import Input, Output, State
-reader = XMLBIFReader("C:/Users/cob91/Desktop/p3 analitica/modeloK2.xml")
+#reader = XMLBIFReader("C:/Users/cob91/Desktop/p3 analitica/modeloK2.xml")
+reader = XMLBIFReader("Analitica computacional/proyecto 3 Pruebas Saber/modelok2.xml")
 model = reader.get_model()
 
 # Retrieve the states for each variable
@@ -50,9 +43,9 @@ print(calcularProbabilidad(listaPrueba2))
 
 
 
-app = dash.Dash(__name__)
+dash.register_page(__name__, name='Predicción')
 
-app.layout = html.Div([
+layout = html.Div([
     html.H1('Ingrese sus datos'),
     html.Label('Área de ubicación del colegio:'),
     dcc.Dropdown(
@@ -271,7 +264,7 @@ app.layout = html.Div([
 
 selected_options = []
 
-@app.callback(
+@callback(
     Output('output-div', 'children'),
     Input('store-button', 'n_clicks'),
     State('dropdown-1', 'value'),
@@ -334,6 +327,3 @@ def store_selection(n_clicks, option1, option2, option3, option4, option5, optio
             html.Ul("75 a 100%: " +str(round(resul.values[3],2)))
             #html.Ul(html_string)
         ])
-
-if __name__ == '__main__':
-    app.run_server(debug=False)

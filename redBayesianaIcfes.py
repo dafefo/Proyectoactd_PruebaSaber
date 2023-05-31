@@ -195,7 +195,6 @@ def process_data(datosPrueba, pModelo):
 
 ResultadoK2 = process_data(icfes_prueba,estimated_modelh)
 
-a = 1
 
 
 
