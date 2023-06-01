@@ -11,7 +11,8 @@ from pgmpy.inference import VariableElimination
 from pgmpy.readwrite import XMLBIFReader
 from dash.dependencies import Input, Output, State
 #reader = XMLBIFReader("C:/Users/cob91/Desktop/p3 analitica/modeloK2.xml")
-reader = XMLBIFReader("Analitica computacional/proyecto 3 Pruebas Saber/modelok2.xml")
+#reader = XMLBIFReader("Analitica computacional/Proyecto 3 Prueba Saber/modelok2.xml")
+reader = XMLBIFReader("modelok2.xml")
 model = reader.get_model()
 
 # Retrieve the states for each variable
